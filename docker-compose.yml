@@ -1,0 +1,39 @@
+version: "3"
+services:
+  manager:
+    image: chd1
+    entrypoint: /usr/sbin/init
+    stdin_open: true
+    privileged: true
+    volumes:
+      - ./config/core-site.xml:/usr/local/hadoop-3.1.1/etc/hadoop/core-site.xml
+      - ./config/mapred-site.xml:/usr/local/hadoop-3.1.1/etc/hadoop/mapred-site.xml
+      - ./config/hdfs-site.xml:/usr/local/hadoop-3.1.1/etc/hadoop/hdfs-site.xml
+      - ./config/yarn-site.xml:/usr/local/hadoop-3.1.1/etc/hadoop/yarn-site.xml
+      - ./config/capacity-scheduler.xml:/usr/local/hadoop-3.1.1/etc/hadoop/capacity-scheduler.xml
+      - ./config/hadoop-env.sh:/usr/local/hadoop-3.1.1/etc/hadoop/hadoop-env.sh
+      - ./config/workers:/usr/local/hadoop-3.1.1/etc/hadoop/workers
+      - ./config/home:/home
+      - ./config/logs/manager:/usr/local/hadoop-3.1.1/logs
+    depends_on:
+      - worker1
+    ports:
+      - "8000:9870"
+      - "8001:19888"
+      - "8002:8088"
+  worker1:
+    image: chd1
+    entrypoint: /usr/sbin/init
+    stdin_open: true
+    privileged: true
+    volumes:
+      - ./config/core-site.xml:/usr/local/hadoop-3.1.1/etc/hadoop/core-site.xml
+      - ./config/mapred-site.xml:/usr/local/hadoop-3.1.1/etc/hadoop/mapred-site.xml
+      - ./config/hdfs-site.xml:/usr/local/hadoop-3.1.1/etc/hadoop/hdfs-site.xml
+      - ./config/yarn-site.xml:/usr/local/hadoop-3.1.1/etc/hadoop/yarn-site.xml
+      - ./config/capacity-scheduler.xml:/usr/local/hadoop-3.1.1/etc/hadoop/capacity-scheduler.xml
+      - ./config/hadoop-env.sh:/usr/local/hadoop-3.1.1/etc/hadoop/hadoop-env.sh
+      - ./config/workers:/usr/local/hadoop-3.1.1/etc/hadoop/workers
+      - ./config/logs/worker1:/usr/local/hadoop-3.1.1/logs
+    ports:
+      - "9080:8088"

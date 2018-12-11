@@ -1,2 +1,2 @@
 # hadoop-in-centos
-build apache image cluster with centos in docker
+build apache php enviroment image cluster with centos in docker
